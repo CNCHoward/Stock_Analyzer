@@ -146,6 +146,40 @@ def get_premarket(ticker: yf.Ticker, last_close: float) -> dict:
     return result
 
 
+# ── Trade level suggestions ──────────────────────────────────────────────────
+
+def calc_trade_levels(price: float, atr: float, trend: str) -> dict:
+    """
+    ATR-based entry, stop loss, and take profit levels.
+    Uses a 1:2 risk/reward ratio. Risk = 0.5 × ATR.
+    """
+    risk = round(atr * 0.5, 2)
+
+    if trend != "BEARISH":
+        # Long setup
+        entry       = round(price, 2)
+        stop_loss   = round(entry - risk, 2)
+        take_profit1 = round(entry + atr, 2)
+        take_profit2 = round(entry + atr * 2, 2)
+        direction   = "LONG  (Buy)"
+    else:
+        # Short setup
+        entry        = round(price, 2)
+        stop_loss    = round(entry + risk, 2)
+        take_profit1 = round(entry - atr, 2)
+        take_profit2 = round(entry - atr * 2, 2)
+        direction    = "SHORT  (Sell)"
+
+    return {
+        "direction":    direction,
+        "entry":        entry,
+        "stop_loss":    stop_loss,
+        "take_profit1": take_profit1,
+        "take_profit2": take_profit2,
+        "risk_amt":     risk,
+    }
+
+
 # ── Scoring ───────────────────────────────────────────────────────────────────
 
 def score_stock(metrics: dict) -> tuple[int, list[str]]:
@@ -269,6 +303,7 @@ def analyze_ticker(symbol: str, fetch_premarket: bool = True) -> dict | None:
         score, reasons = score_stock(metrics)
         metrics["score"]   = score
         metrics["reasons"] = reasons
+        metrics.update(calc_trade_levels(price, atr, trend))
         return metrics
 
     except Exception as e:
