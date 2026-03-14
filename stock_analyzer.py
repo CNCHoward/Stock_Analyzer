@@ -229,12 +229,25 @@ def analyze_ticker(symbol: str, fetch_premarket: bool = True) -> dict | None:
 
         pm_data = get_premarket(ticker, prev_close) if fetch_premarket else {}
 
-        # Company name
+        # Company name — try API first, fall back to known names
+        _KNOWN_NAMES = {
+            "AAPL": "Apple Inc.", "MSFT": "Microsoft Corporation",
+            "NVDA": "NVIDIA Corporation", "TSLA": "Tesla Inc.",
+            "META": "Meta Platforms Inc.", "GOOGL": "Alphabet Inc.",
+            "AMZN": "Amazon.com Inc.", "AMD": "Advanced Micro Devices Inc.",
+            "PLTR": "Palantir Technologies Inc.", "SOFI": "SoFi Technologies Inc.",
+            "MARA": "MARA Holdings Inc.", "RIOT": "Riot Platforms Inc.",
+            "COIN": "Coinbase Global Inc.", "SPY": "SPDR S&P 500 ETF",
+            "QQQ": "Invesco QQQ Trust (Nasdaq-100 ETF)",
+            "SQQQ": "ProShares UltraPro Short QQQ ETF",
+            "TQQQ": "ProShares UltraPro QQQ ETF",
+        }
         try:
             info = ticker.info
-            company_name = info.get("longName") or info.get("shortName") or symbol
+            company_name = (info.get("longName") or info.get("shortName")
+                            or _KNOWN_NAMES.get(symbol, symbol))
         except Exception:
-            company_name = symbol
+            company_name = _KNOWN_NAMES.get(symbol, symbol)
 
         metrics = {
             "symbol":        symbol,
