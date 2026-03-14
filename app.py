@@ -12,6 +12,8 @@ warnings.filterwarnings("ignore")
 
 import streamlit as st
 import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 sys.path.insert(0, os.path.dirname(__file__))
 import stock_analyzer as sa
@@ -103,6 +105,95 @@ p, li, span, div, label, caption {
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+# ── Chart builder ────────────────────────────────────────────────────────────
+def build_chart(symbol: str, entry: float, stop_loss: float,
+                take_profit1: float, take_profit2: float) -> go.Figure | None:
+    df = sa.get_chart_data(symbol)
+    if df is None or df.empty:
+        return None
+
+    fig = make_subplots(
+        rows=2, cols=1,
+        shared_xaxes=True,
+        row_heights=[0.7, 0.3],
+        vertical_spacing=0.04,
+    )
+
+    # ── Candlesticks ──
+    fig.add_trace(go.Candlestick(
+        x=df.index,
+        open=df["Open"], high=df["High"],
+        low=df["Low"],   close=df["Close"],
+        name="Price",
+        increasing_line_color="#00c6a7",
+        decreasing_line_color="#ff4444",
+        increasing_fillcolor="#00c6a7",
+        decreasing_fillcolor="#ff4444",
+    ), row=1, col=1)
+
+    # ── EMA lines ──
+    fig.add_trace(go.Scatter(
+        x=df.index, y=df["EMA9"],
+        name="EMA 9", line=dict(color="#ffd700", width=1.5, dash="solid"),
+    ), row=1, col=1)
+    fig.add_trace(go.Scatter(
+        x=df.index, y=df["EMA21"],
+        name="EMA 21", line=dict(color="#0099ff", width=1.5, dash="dot"),
+    ), row=1, col=1)
+
+    # ── Trade level lines ──
+    x_range = [df.index[0], df.index[-1]]
+    for price, label, color, dash in [
+        (entry,       "Entry",      "#00c6a7", "solid"),
+        (stop_loss,   "Stop Loss",  "#ff4444", "dash"),
+        (take_profit1,"Target 1",   "#ffd700", "dash"),
+        (take_profit2,"Target 2",   "#aaff44", "dash"),
+    ]:
+        fig.add_trace(go.Scatter(
+            x=x_range, y=[price, price],
+            name=label,
+            line=dict(color=color, width=1, dash=dash),
+            mode="lines",
+        ), row=1, col=1)
+
+    # ── Volume bars ──
+    colors = ["#00c6a7" if c >= o else "#ff4444"
+              for c, o in zip(df["Close"], df["Open"])]
+    fig.add_trace(go.Bar(
+        x=df.index, y=df["Volume"],
+        name="Volume", marker_color=colors, opacity=0.6,
+        showlegend=False,
+    ), row=2, col=1)
+
+    # ── RSI line ──
+    fig.add_trace(go.Scatter(
+        x=df.index, y=df["RSI"],
+        name="RSI", line=dict(color="#cc88ff", width=1.5),
+    ), row=2, col=1)
+    # RSI reference lines
+    for level, color in [(70, "#ff4444"), (30, "#00c6a7")]:
+        fig.add_hline(y=level, line_dash="dot", line_color=color,
+                      opacity=0.5, row=2, col=1)
+
+    fig.update_layout(
+        paper_bgcolor="#0d1117",
+        plot_bgcolor="#111827",
+        font=dict(color="#f0f4f8", size=12),
+        xaxis_rangeslider_visible=False,
+        legend=dict(
+            orientation="h", yanchor="bottom", y=1.02,
+            bgcolor="rgba(0,0,0,0)", font=dict(size=11),
+        ),
+        margin=dict(l=10, r=10, t=40, b=10),
+        height=500,
+    )
+    fig.update_xaxes(gridcolor="#1e2a3a", showgrid=True)
+    fig.update_yaxes(gridcolor="#1e2a3a", showgrid=True)
+    fig.update_yaxes(title_text="RSI", row=2, col=1, range=[0, 100])
+
+    return fig
 
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -237,6 +328,16 @@ if results:
                 f"### {r['symbol']} — {company}\n"
                 f"[📊 Yahoo Finance]({yahoo_url})   |   [📄 SEC Filings]({sec_url})"
             )
+
+            # Chart
+            fig = build_chart(
+                r["symbol"], r.get("entry", r["price"]),
+                r.get("stop_loss", r["price"]),
+                r.get("take_profit1", r["price"]),
+                r.get("take_profit2", r["price"]),
+            )
+            if fig:
+                st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
 
             # Score bar
             bar_color = "#00c6a7" if r["score"] >= 75 else ("#e07b00" if r["score"] >= 35 else "#aa2222")

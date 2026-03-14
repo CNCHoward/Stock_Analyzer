@@ -146,6 +146,27 @@ def get_premarket(ticker: yf.Ticker, last_close: float) -> dict:
     return result
 
 
+# ── Chart data ───────────────────────────────────────────────────────────────
+
+def get_chart_data(symbol: str, period: str = "3mo") -> pd.DataFrame | None:
+    """Return OHLCV DataFrame with EMA9, EMA21, and RSI columns added."""
+    try:
+        hist = yf.Ticker(symbol).history(period=period, interval="1d")
+        if hist.empty:
+            return None
+        hist["EMA9"]  = hist["Close"].ewm(span=9,  adjust=False).mean()
+        hist["EMA21"] = hist["Close"].ewm(span=21, adjust=False).mean()
+        # RSI
+        delta = hist["Close"].diff()
+        gain  = delta.clip(lower=0).rolling(14).mean()
+        loss  = (-delta.clip(upper=0)).rolling(14).mean()
+        rs    = gain / loss.replace(0, np.nan)
+        hist["RSI"] = 100 - (100 / (1 + rs))
+        return hist
+    except Exception:
+        return None
+
+
 # ── Trade level suggestions ──────────────────────────────────────────────────
 
 def calc_trade_levels(price: float, atr: float, trend: str) -> dict:
