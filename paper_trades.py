@@ -297,23 +297,25 @@ def build_email_body(data: dict, prices: dict, today: str) -> str:
 def send_email(subject: str, body: str):
     email_from = os.environ.get("EMAIL_FROM")
     email_pass = os.environ.get("EMAIL_PASSWORD")
-    email_to   = os.environ.get("EMAIL_TO")
+    email_to   = os.environ.get("EMAIL_TO")  # comma-separated for multiple recipients
 
     if not all([email_from, email_pass, email_to]):
         print("[!] Email env vars missing: EMAIL_FROM, EMAIL_PASSWORD, EMAIL_TO")
         return
 
+    recipients = [e.strip() for e in email_to.split(",")]
+
     msg = MIMEMultipart()
     msg["From"]    = email_from
-    msg["To"]      = email_to
+    msg["To"]      = ", ".join(recipients)
     msg["Subject"] = subject
     msg.attach(MIMEText(body, "plain"))
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(email_from, email_pass)
-            server.sendmail(email_from, email_to, msg.as_string())
-        print(f"  Email sent to {email_to}")
+            server.sendmail(email_from, recipients, msg.as_string())
+        print(f"  Email sent to {', '.join(recipients)}")
     except Exception as e:
         print(f"  [!] Email failed: {e}")
 
