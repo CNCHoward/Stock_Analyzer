@@ -358,6 +358,94 @@ elif not run_clicked:
     st.info("👆 Tap **Run Analysis** to scan your watchlist.")
 
 
+# ── Education / Reference Guide ──────────────────────────────────────────────
+st.divider()
+with st.expander("📚 How to Read This App — Indicator & Category Guide"):
+    st.markdown("""
+### 🏆 Score Tiers
+| Tier | Score | What it means | How to trade it |
+|------|-------|---------------|-----------------|
+| **A — STRONG** | 75–100 | Multiple strong signals align — high conviction setup | Highest priority. Watch closely at open, be ready to act quickly |
+| **B — GOOD** | 55–74 | Solid setup with 2–3 meaningful signals | Worth trading but size down slightly vs A-tier |
+| **C — WEAK** | 35–54 | Only marginal signals, low conviction | Avoid unless you see a clear catalyst not captured here |
+| **D — SKIP** | 0–34 | Little to no day trading appeal today | Move on — there are better opportunities elsewhere |
+
+---
+
+### 📐 Trade Levels
+| Level | What it is | How to use it |
+|-------|-----------|---------------|
+| 🟢 **Entry (Buy / Sell Short)** | Suggested price to enter the trade based on current price | Enter near this price. For longs, buy on a small pullback or breakout confirmation |
+| 🛑 **Stop Loss** | The price where you exit if the trade goes against you | Place your stop order here immediately after entering. Limits your loss to ~0.5× ATR |
+| 🎯 **Take Profit 1** | Conservative first target — 1× ATR from entry | Sell half your position here to lock in gains and let the rest ride |
+| 🎯 **Take Profit 2** | Aggressive second target — 2× ATR from entry | Exit the remainder of your position here for maximum gain |
+
+> **Risk/Reward:** These levels give you a 1:2 ratio — you risk $1 to potentially make $2. Never risk more than 1–2% of your account on a single trade.
+
+---
+
+### 📊 Technical Indicators Explained
+
+**Score (0–100)**
+The overall day trading score. Combines all indicators below into one number. Higher = more signals are lined up in your favor.
+
+**Gap %**
+How much the stock jumped or dropped from yesterday's closing price at today's open.
+- A big gap up (+3% or more) often means news or a catalyst — can create strong momentum
+- A big gap down can mean a short opportunity or a bounce setup
+- Gaps tend to "fill" — price often returns to pre-gap levels
+
+**PM % (Pre-Market)**
+The stock's price change before the regular market opens (4am–9:30am ET).
+- Large pre-market moves signal institutional activity or overnight news
+- Confirms or contradicts the gap — if both are up, momentum is stronger
+
+**RSI (Relative Strength Index) — scale 0 to 100**
+Measures whether a stock is overbought or oversold.
+- **Above 70** — Overbought. Stock has run up fast and may pull back, but strong momentum trades can keep going
+- **Below 30** — Oversold. Stock has sold off hard and may bounce — look for a reversal entry
+- **40–60** — Neutral zone, no strong momentum signal either way
+
+**ATR % (Average True Range)**
+How much the stock typically moves in a single day, expressed as a percentage of its price.
+- **4%+** — Very high volatility. Big moves possible — great for day trading but risk is higher
+- **2–4%** — High volatility. Good day trading candidate
+- **1–2%** — Moderate. Smaller moves, tighter stops needed
+- **Below 1%** — Low volatility. Hard to make meaningful profit in a single day
+
+**Vol ×avg (Volume vs Average)**
+Today's trading volume compared to the 20-day average.
+- **2× or more** — Unusual activity. Institutions or news driving the move — stronger conviction
+- **1.5×** — Elevated but not extreme
+- **Below 1×** — Quiet day, moves may not have follow-through
+
+**EMA Trend (9-period vs 21-period Exponential Moving Average)**
+Shows the short-term trend direction.
+- **BULLISH** — The fast moving average (9 EMA) is above the slow one (21 EMA) — price is in an uptrend. Favor long (buy) trades
+- **BEARISH** — The fast MA is below the slow one — price is in a downtrend. Favor short trades or avoid longs
+- **NEUTRAL** — MAs are essentially equal — no clear trend
+
+**MACD (Moving Average Convergence Divergence)**
+Measures momentum and trend changes using two moving averages.
+- **Bullish crossover** — The MACD line crossed above the signal line — upward momentum is building
+- **Bearish** — MACD crossed below signal — downward momentum building
+
+---
+
+### 🧠 General Day Trading Tips
+- **Trade A-tier stocks first** — your best setups deserve your full attention
+- **Always set your stop loss before you enter** — never trade without one
+- **Take Profit 1 is your safety net** — lock in gains on half your position, then let the rest run to Target 2
+- **Volume confirms everything** — a price move on 2× average volume is far more reliable than one on low volume
+- **Pre-market + gap in same direction = stronger signal** — they confirm each other
+- **RSI extremes + high ATR = high probability bounce or continuation trades**
+- **Never risk more than 1–2% of your total account on a single trade**
+
+---
+⚠️ *This app is for educational and research purposes only. It does not constitute financial advice.
+Always do your own research before making any trading decisions.*
+""")
+
 # ── Auto-refresh countdown ────────────────────────────────────────────────────
 if auto_on and st.session_state.results:
     placeholder = st.empty()
