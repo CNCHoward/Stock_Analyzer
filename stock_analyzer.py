@@ -244,8 +244,10 @@ def analyze_ticker(symbol: str, fetch_premarket: bool = True) -> dict | None:
         }
         try:
             info = ticker.info
-            company_name = (info.get("longName") or info.get("shortName")
-                            or _KNOWN_NAMES.get(symbol, symbol))
+            company_name = (_KNOWN_NAMES.get(symbol)
+                            or info.get("longName")
+                            or info.get("shortName")
+                            or symbol)
         except Exception:
             company_name = _KNOWN_NAMES.get(symbol, symbol)
 
