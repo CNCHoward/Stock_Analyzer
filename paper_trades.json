@@ -1,0 +1,74 @@
+{
+  "simulation": {
+    "start_date": "2026-03-14",
+    "end_date": "2026-03-21",
+    "total_budget": 1000.0,
+    "cash_remaining": 0.0,
+    "note": "Trades opened based on analyzer top picks (score-weighted allocation, fractional shares)."
+  },
+  "trades": [
+    {
+      "symbol": "MARA",
+      "direction": "LONG",
+      "entry_date": "2026-03-14",
+      "entry_price": 9.32,
+      "shares": 40.24,
+      "allocation": 375.0,
+      "stop_loss": 8.91,
+      "take_profit1": 10.14,
+      "take_profit2": 10.96,
+      "analyzer_score": 75,
+      "status": "OPEN",
+      "snapshots": [
+        {
+          "date": "2026-03-14",
+          "price": 9.32,
+          "pnl": 0.0,
+          "pnl_pct": 0.0
+        }
+      ]
+    },
+    {
+      "symbol": "COIN",
+      "direction": "LONG",
+      "entry_date": "2026-03-14",
+      "entry_price": 195.53,
+      "shares": 1.662,
+      "allocation": 325.0,
+      "stop_loss": 188.88,
+      "take_profit1": 208.83,
+      "take_profit2": 222.13,
+      "analyzer_score": 65,
+      "status": "OPEN",
+      "snapshots": [
+        {
+          "date": "2026-03-14",
+          "price": 195.53,
+          "pnl": 0.0,
+          "pnl_pct": 0.0
+        }
+      ]
+    },
+    {
+      "symbol": "PLTR",
+      "direction": "LONG",
+      "entry_date": "2026-03-14",
+      "entry_price": 150.95,
+      "shares": 1.987,
+      "allocation": 300.0,
+      "stop_loss": 147.68,
+      "take_profit1": 157.5,
+      "take_profit2": 164.05,
+      "analyzer_score": 60,
+      "status": "OPEN",
+      "snapshots": [
+        {
+          "date": "2026-03-14",
+          "price": 150.95,
+          "pnl": 0.0,
+          "pnl_pct": 0.0
+        }
+      ]
+    }
+  ]
+}
