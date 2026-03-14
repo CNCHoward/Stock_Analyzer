@@ -27,14 +27,27 @@ st.set_page_config(
 # ── Dark theme + color scheme ─────────────────────────────────────────────────
 st.markdown("""
 <style>
-/* ── Base dark background ── */
+/* ── Base dark background + bright text ── */
 .stApp, .main, section[data-testid="stSidebar"] {
     background-color: #0d1117;
+    color: #f0f4f8;
 }
 .block-container {
     background-color: #0d1117;
     padding-top: 1.5rem;
+    color: #f0f4f8;
 }
+/* Force all paragraph and list text to be bright white */
+p, li, span, div, label, caption {
+    color: #f0f4f8 !important;
+}
+/* Metric labels and values */
+[data-testid="stMetricLabel"] { color: #a8c0d6 !important; font-size: 0.85rem !important; }
+[data-testid="stMetricValue"] { color: #ffffff !important; font-size: 1.4rem !important; font-weight: 700 !important; }
+/* Expander text */
+.stExpander summary, .stExpander p { color: #f0f4f8 !important; }
+/* Caption text */
+.stCaption, [data-testid="stCaptionContainer"] { color: #a8c0d6 !important; }
 
 /* ── Run button ── */
 .stButton > button {
