@@ -188,10 +188,20 @@ if results:
             f"{pm_str}{alert_flag}"
         )
 
+        company = r.get("company_name", r["symbol"])
+        yahoo_url = f"https://finance.yahoo.com/quote/{r['symbol']}"
+        sec_url   = f"https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&company={r['symbol']}&type=&dateb=&owner=include&count=10&search_text="
+
         with st.expander(
-            f"{r['symbol']}  |  Score {r['score']}  |  {t}  |  ${r['price']:.2f}{pm_str}{alert_flag}",
+            f"{r['symbol']}  |  {company}  |  Score {r['score']}  |  {t}  |  ${r['price']:.2f}{pm_str}{alert_flag}",
             expanded=(r["score"] >= 75)
         ):
+            # Company name + links
+            st.markdown(
+                f"### {r['symbol']} — {company}\n"
+                f"[📊 Yahoo Finance]({yahoo_url})   |   [📄 SEC Filings]({sec_url})"
+            )
+
             # Score bar
             bar_w = r["score"]
             bar_color = "#1a7a3f" if r["score"] >= 75 else ("#8a6a00" if r["score"] >= 35 else "#7a1a1a")
@@ -226,6 +236,7 @@ if results:
     with st.expander("📊 Full Data Table"):
         df = pd.DataFrame([{
             "Symbol":   r["symbol"],
+            "Company":  r.get("company_name", r["symbol"]),
             "Score":    r["score"],
             "Tier":     sa.tier(r["score"]),
             "Price":    r["price"],

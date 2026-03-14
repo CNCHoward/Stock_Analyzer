@@ -229,8 +229,16 @@ def analyze_ticker(symbol: str, fetch_premarket: bool = True) -> dict | None:
 
         pm_data = get_premarket(ticker, prev_close) if fetch_premarket else {}
 
+        # Company name
+        try:
+            info = ticker.info
+            company_name = info.get("longName") or info.get("shortName") or symbol
+        except Exception:
+            company_name = symbol
+
         metrics = {
             "symbol":        symbol,
+            "company_name":  company_name,
             "price":         round(price, 2),
             "gap_pct":       gap,
             "rsi":           rsi,
