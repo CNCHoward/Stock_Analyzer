@@ -3,7 +3,7 @@
     "start_date": "2026-03-14",
     "end_date": "2026-03-21",
     "total_budget": 1000.0,
-    "cash_remaining": 0.0,
+    "cash_remaining": 350.53,
     "note": "Trades opened based on analyzer top picks (score-weighted allocation, fractional shares)."
   },
   "trades": [
@@ -31,39 +31,6 @@
           "price": 73.21,
           "pnl": 0.0,
           "pnl_pct": 0.0
-        }
-      ]
-    },
-    {
-      "symbol": "COIN",
-      "direction": "LONG",
-      "entry_date": "2026-03-14",
-      "entry_price": 195.53,
-      "shares": 1.662,
-      "allocation": 325.0,
-      "stop_loss": 188.88,
-      "take_profit1": 208.83,
-      "take_profit2": 222.13,
-      "analyzer_score": 65,
-      "status": "OPEN",
-      "snapshots": [
-        {
-          "date": "2026-03-14",
-          "price": 195.53,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        },
-        {
-          "date": "2026-03-16",
-          "price": 203.32,
-          "pnl": 12.95,
-          "pnl_pct": 3.98
-        },
-        {
-          "date": "2026-03-17",
-          "price": 203.32,
-          "pnl": 12.95,
-          "pnl_pct": 3.98
         }
       ]
     },
