@@ -126,14 +126,17 @@ def update_and_display(close_symbol: str | None = None):
         tag = status_tag(trade, current_price)
 
         # Auto-close if stop or TP hit
-        if tag in ("STOP HIT", "TP2 HIT") and trade["status"] == "OPEN":
-            trade["status"] = "CLOSED"
-            print(f"  >> {trade['symbol']} auto-closed: {tag}")
-
+        should_close = tag in ("STOP HIT", "TP2 HIT") and trade["status"] == "OPEN"
         # Manual close
-        if close_symbol and trade["symbol"] == close_symbol.upper():
+        if close_symbol and trade["symbol"] == close_symbol.upper() and trade["status"] == "OPEN":
+            should_close = True
+
+        if should_close:
             trade["status"] = "CLOSED"
-            print(f"  >> {trade['symbol']} manually closed at ${current_price}")
+            sim = data["simulation"]
+            sim["realized_pnl"] = round(sim.get("realized_pnl", 0.0) + pnl, 2)
+            sim["cash_remaining"] = round(sim.get("cash_remaining", 0.0) + trade["allocation"] + pnl, 2)
+            print(f"  >> {trade['symbol']} closed ({tag}) at ${current_price}, P&L: ${pnl:+.2f}")
 
         # Save snapshot (once per day)
         last_date = trade["snapshots"][-1]["date"] if trade["snapshots"] else None
@@ -147,6 +150,9 @@ def update_and_display(close_symbol: str | None = None):
 
         total_cost  += trade["allocation"]
         total_value += trade["allocation"] + pnl
+
+    # Remove closed trades — realized P&L and cash already captured above
+    data["trades"] = [t for t in data["trades"] if t["status"] != "CLOSED"]
 
     save_trades(data)
     _display(data, prices, today)
@@ -209,12 +215,16 @@ def _display(data: dict, prices: dict, today: str):
         console.print()
         console.print(table)
 
-        total_pct = round((total_pnl / total_cost) * 100, 2) if total_cost else 0
-        pnl_color = "green" if total_pnl >= 0 else "red"
+        realized  = sim.get("realized_pnl", 0.0)
+        cash      = sim.get("cash_remaining", 0.0)
+        net_pnl   = round(total_pnl + realized, 2)
+        port_value = round(cash + total_cost + total_pnl, 2)
+        total_pct = round((net_pnl / sim["total_budget"]) * 100, 2) if sim["total_budget"] else 0
+        pnl_color = "green" if net_pnl >= 0 else "red"
         console.print(Panel(
             f"Budget: [bold]${sim['total_budget']:.2f}[/bold]  |  "
-            f"Total P&L: [{pnl_color}][bold]${total_pnl:+.2f}  ({total_pct:+.2f}%)[/bold][/{pnl_color}]  |  "
-            f"Portfolio Value: [bold]${(total_cost + total_pnl):.2f}[/bold]  |  "
+            f"Portfolio Value: [bold]${port_value:.2f}[/bold]  |  "
+            f"Total P&L: [{pnl_color}][bold]${net_pnl:+.2f}  ({total_pct:+.2f}%)[/bold][/{pnl_color}]  |  "
             f"Period: {sim['start_date']} to {sim['end_date']}",
             box=box.ROUNDED
         ))
@@ -240,10 +250,14 @@ def _display(data: dict, prices: dict, today: str):
             total_pnl  += pnl
             total_cost += trade["allocation"]
 
-        total_pct = round((total_pnl / total_cost) * 100, 2) if total_cost else 0
+        realized   = sim.get("realized_pnl", 0.0)
+        cash       = sim.get("cash_remaining", 0.0)
+        net_pnl    = round(total_pnl + realized, 2)
+        port_value = round(cash + total_cost + total_pnl, 2)
+        total_pct  = round((net_pnl / sim["total_budget"]) * 100, 2) if sim["total_budget"] else 0
         print(f"\n  Budget: ${sim['total_budget']:.2f}  |  "
-              f"P&L: ${total_pnl:+.2f} ({total_pct:+.2f}%)  |  "
-              f"Value: ${(total_cost + total_pnl):.2f}")
+              f"Portfolio Value: ${port_value:.2f}  |  "
+              f"Total P&L: ${net_pnl:+.2f} ({total_pct:+.2f}%)")
         print(f"  Period: {sim['start_date']} → {sim['end_date']}")
         print(f"{'='*80}")
 
@@ -283,12 +297,16 @@ def build_email_body(data: dict, prices: dict, today: str) -> str:
         total_pnl  += pnl
         total_cost += trade["allocation"]
 
-    total_pct = round((total_pnl / total_cost) * 100, 2) if total_cost else 0
+    realized   = sim.get("realized_pnl", 0.0)
+    cash       = sim.get("cash_remaining", 0.0)
+    net_pnl    = round(total_pnl + realized, 2)
+    port_value = round(cash + total_cost + total_pnl, 2)
+    total_pct  = round((net_pnl / sim["total_budget"]) * 100, 2) if sim["total_budget"] else 0
     lines += [
         "=" * 70,
         f"\n  Budget:          ${sim['total_budget']:.2f}",
-        f"  Total P&L:       ${total_pnl:+.2f}  ({total_pct:+.2f}%)",
-        f"  Portfolio Value: ${(total_cost + total_pnl):.2f}",
+        f"  Portfolio Value: ${port_value:.2f}",
+        f"  Total P&L:       ${net_pnl:+.2f}  ({total_pct:+.2f}%)",
         "\nDISCLAIMER: Paper trading only. Not financial advice.",
     ]
     return "\n".join(lines)
