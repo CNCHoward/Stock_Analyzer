@@ -23,18 +23,8 @@
       "close_price": 9.23,
       "close_reason": "Manual close — rotating into SQQQ hedge",
       "snapshots": [
-        {
-          "date": "2026-03-14",
-          "price": 9.32,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        },
-        {
-          "date": "2026-03-16",
-          "price": 9.23,
-          "pnl": -3.62,
-          "pnl_pct": -0.97
-        }
+        {"date": "2026-03-14", "price": 9.32, "pnl": 0.0, "pnl_pct": 0.0},
+        {"date": "2026-03-16", "price": 9.23, "pnl": -3.62, "pnl_pct": -0.97}
       ]
     },
     {
@@ -50,12 +40,7 @@
       "analyzer_score": 68,
       "status": "OPEN",
       "snapshots": [
-        {
-          "date": "2026-03-16",
-          "price": 73.21,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        }
+        {"date": "2026-03-16", "price": 73.21, "pnl": 0.0, "pnl_pct": 0.0}
       ]
     },
     {
@@ -71,12 +56,8 @@
       "analyzer_score": 65,
       "status": "OPEN",
       "snapshots": [
-        {
-          "date": "2026-03-14",
-          "price": 195.53,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        }
+        {"date": "2026-03-14", "price": 195.53, "pnl": 0.0, "pnl_pct": 0.0},
+        {"date": "2026-03-16", "price": 203.32, "pnl": 12.95, "pnl_pct": 3.98}
       ]
     },
     {
@@ -92,12 +73,8 @@
       "analyzer_score": 60,
       "status": "OPEN",
       "snapshots": [
-        {
-          "date": "2026-03-14",
-          "price": 150.95,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        }
+        {"date": "2026-03-14", "price": 150.95, "pnl": 0.0, "pnl_pct": 0.0},
+        {"date": "2026-03-16", "price": 152.72, "pnl": 3.52, "pnl_pct": 1.17}
       ]
     }
   ]
