@@ -127,6 +127,13 @@ def update_and_display(close_symbol: str | None = None):
 
         # Auto-close if stop or TP hit
         should_close = tag in ("STOP HIT", "TP2 HIT") and trade["status"] == "OPEN"
+        # Sanity check: reject auto-close if price is >25% from entry (likely bad yfinance data)
+        if should_close:
+            move_pct = abs(current_price - trade["entry_price"]) / trade["entry_price"]
+            if move_pct > 0.25:
+                print(f"  [!] {trade['symbol']} flagged {tag} at ${current_price:.2f} "
+                      f"({move_pct:.1%} from entry) — skipping auto-close, possible bad data")
+                should_close = False
         # Manual close
         if close_symbol and trade["symbol"] == close_symbol.upper() and trade["status"] == "OPEN":
             should_close = True
