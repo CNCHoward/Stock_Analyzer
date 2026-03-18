@@ -3,7 +3,7 @@
     "start_date": "2026-03-14",
     "end_date": "2026-03-21",
     "total_budget": 1000.0,
-    "cash_remaining": 25.10,
+    "cash_remaining": 25.1,
     "realized_pnl": 16.48,
     "note": "Trades opened based on analyzer top picks (score-weighted allocation, fractional shares)."
   },
