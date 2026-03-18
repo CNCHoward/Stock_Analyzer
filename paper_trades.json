@@ -3,33 +3,11 @@
     "start_date": "2026-03-14",
     "end_date": "2026-03-21",
     "total_budget": 1000.0,
-    "cash_remaining": 5.40,
+    "cash_remaining": 25.10,
     "realized_pnl": 16.48,
-    "note": "2026-03-18: Closed SQQQ (-$5.43 realized). Opened NVDA ($400 alloc) and TQQQ ($295 alloc). PLTR held."
+    "note": "Trades opened based on analyzer top picks (score-weighted allocation, fractional shares)."
   },
   "trades": [
-    {
-      "symbol": "SQQQ",
-      "direction": "LONG",
-      "entry_date": "2026-03-16",
-      "exit_date": "2026-03-18",
-      "entry_price": 73.21,
-      "exit_price": 72.15,
-      "shares": 5.123,
-      "allocation": 375.0,
-      "stop_loss": 71.26,
-      "take_profit1": 77.11,
-      "take_profit2": 81.01,
-      "analyzer_score": 68,
-      "status": "CLOSED",
-      "realized_pnl": -5.43,
-      "realized_pnl_pct": -1.45,
-      "snapshots": [
-        { "date": "2026-03-16", "price": 73.21, "pnl": 0.0,   "pnl_pct": 0.0   },
-        { "date": "2026-03-17", "price": 73.21, "pnl": 0.0,   "pnl_pct": 0.0   },
-        { "date": "2026-03-18", "price": 72.15, "pnl": -5.43, "pnl_pct": -1.45 }
-      ]
-    },
     {
       "symbol": "PLTR",
       "direction": "LONG",
@@ -37,16 +15,36 @@
       "entry_price": 150.95,
       "shares": 1.987,
       "allocation": 300.0,
-      "stop_loss": 152.00,
+      "stop_loss": 147.68,
       "take_profit1": 157.5,
       "take_profit2": 164.05,
       "analyzer_score": 60,
       "status": "OPEN",
       "snapshots": [
-        { "date": "2026-03-14", "price": 150.95, "pnl": 0.0,  "pnl_pct": 0.0  },
-        { "date": "2026-03-16", "price": 152.72, "pnl": 3.52,  "pnl_pct": 1.17 },
-        { "date": "2026-03-17", "price": 152.72, "pnl": 3.52,  "pnl_pct": 1.17 },
-        { "date": "2026-03-18", "price": 155.08, "pnl": 8.21,  "pnl_pct": 2.74 }
+        {
+          "date": "2026-03-14",
+          "price": 150.95,
+          "pnl": 0.0,
+          "pnl_pct": 0.0
+        },
+        {
+          "date": "2026-03-16",
+          "price": 152.72,
+          "pnl": 3.52,
+          "pnl_pct": 1.17
+        },
+        {
+          "date": "2026-03-17",
+          "price": 152.72,
+          "pnl": 3.52,
+          "pnl_pct": 1.17
+        },
+        {
+          "date": "2026-03-18",
+          "price": 155.08,
+          "pnl": 8.21,
+          "pnl_pct": 2.74
+        }
       ]
     },
     {
@@ -56,13 +54,18 @@
       "entry_price": 116.78,
       "shares": 3.425,
       "allocation": 400.0,
-      "stop_loss": 111.00,
-      "take_profit1": 124.00,
-      "take_profit2": 131.00,
-      "analyzer_score": null,
+      "stop_loss": 114.78,
+      "take_profit1": 120.78,
+      "take_profit2": 124.78,
+      "analyzer_score": 0,
       "status": "OPEN",
       "snapshots": [
-        { "date": "2026-03-18", "price": 116.78, "pnl": 0.0, "pnl_pct": 0.0 }
+        {
+          "date": "2026-03-18",
+          "price": 116.78,
+          "pnl": 0.0,
+          "pnl_pct": 0.0
+        }
       ]
     },
     {
@@ -72,13 +75,18 @@
       "entry_price": 67.24,
       "shares": 4.387,
       "allocation": 295.0,
-      "stop_loss": 63.00,
-      "take_profit1": 72.00,
-      "take_profit2": 77.00,
-      "analyzer_score": null,
+      "stop_loss": 65.74,
+      "take_profit1": 70.24,
+      "take_profit2": 73.24,
+      "analyzer_score": 0,
       "status": "OPEN",
       "snapshots": [
-        { "date": "2026-03-18", "price": 67.24, "pnl": 0.0, "pnl_pct": 0.0 }
+        {
+          "date": "2026-03-18",
+          "price": 67.24,
+          "pnl": 0.0,
+          "pnl_pct": 0.0
+        }
       ]
     }
   ]
