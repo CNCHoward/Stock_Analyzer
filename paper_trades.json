@@ -3,86 +3,11 @@
     "start_date": "2026-03-14",
     "end_date": "2026-03-21",
     "total_budget": 1000.0,
-    "cash_remaining": 25.1,
-    "realized_pnl": 16.48,
+    "cash_remaining": 318.36,
+    "realized_pnl": 9.74,
     "note": "Trades opened based on analyzer top picks (score-weighted allocation, fractional shares)."
   },
   "trades": [
-    {
-      "symbol": "PLTR",
-      "direction": "LONG",
-      "entry_date": "2026-03-14",
-      "entry_price": 150.95,
-      "shares": 1.987,
-      "allocation": 300.0,
-      "stop_loss": 147.68,
-      "take_profit1": 157.5,
-      "take_profit2": 164.05,
-      "analyzer_score": 60,
-      "status": "OPEN",
-      "snapshots": [
-        {
-          "date": "2026-03-14",
-          "price": 150.95,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        },
-        {
-          "date": "2026-03-16",
-          "price": 152.72,
-          "pnl": 3.52,
-          "pnl_pct": 1.17
-        },
-        {
-          "date": "2026-03-17",
-          "price": 152.72,
-          "pnl": 3.52,
-          "pnl_pct": 1.17
-        },
-        {
-          "date": "2026-03-18",
-          "price": 156.22,
-          "pnl": 10.47,
-          "pnl_pct": 3.49
-        },
-        {
-          "date": "2026-03-19",
-          "price": 152.77,
-          "pnl": 3.62,
-          "pnl_pct": 1.21
-        },
-        {
-          "date": "2026-03-20",
-          "price": 155.68,
-          "pnl": 9.4,
-          "pnl_pct": 3.13
-        },
-        {
-          "date": "2026-03-23",
-          "price": 150.68,
-          "pnl": -0.54,
-          "pnl_pct": -0.18
-        },
-        {
-          "date": "2026-03-24",
-          "price": 160.84,
-          "pnl": 19.65,
-          "pnl_pct": 6.55
-        },
-        {
-          "date": "2026-03-25",
-          "price": 154.78,
-          "pnl": 7.61,
-          "pnl_pct": 2.54
-        },
-        {
-          "date": "2026-03-26",
-          "price": 154.96,
-          "pnl": 7.97,
-          "pnl_pct": 2.66
-        }
-      ]
-    },
     {
       "symbol": "NVDA",
       "direction": "LONG",
