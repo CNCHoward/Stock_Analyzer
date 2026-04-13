@@ -3,8 +3,8 @@
     "start_date": "2026-03-14",
     "end_date": "2026-03-21",
     "total_budget": 1000.0,
-    "cash_remaining": 318.36,
-    "realized_pnl": 9.74,
+    "cash_remaining": 540.62,
+    "realized_pnl": -63.0,
     "note": "Trades opened based on analyzer top picks (score-weighted allocation, fractional shares)."
   },
   "trades": [
@@ -134,135 +134,6 @@
           "price": 188.63,
           "pnl": 246.09,
           "pnl_pct": 61.53
-        }
-      ]
-    },
-    {
-      "symbol": "TQQQ",
-      "direction": "LONG",
-      "entry_date": "2026-03-18",
-      "entry_price": 67.24,
-      "shares": 4.387,
-      "allocation": 295.0,
-      "stop_loss": 65.74,
-      "take_profit1": 70.24,
-      "take_profit2": 73.24,
-      "analyzer_score": 0,
-      "status": "OPEN",
-      "snapshots": [
-        {
-          "date": "2026-03-18",
-          "price": 67.24,
-          "pnl": 0.0,
-          "pnl_pct": 0.0
-        },
-        {
-          "date": "2026-03-19",
-          "price": 46.1,
-          "pnl": -92.74,
-          "pnl_pct": -31.44
-        },
-        {
-          "date": "2026-03-20",
-          "price": 45.69,
-          "pnl": -94.54,
-          "pnl_pct": -32.05
-        },
-        {
-          "date": "2026-03-23",
-          "price": 43.08,
-          "pnl": -105.99,
-          "pnl_pct": -35.93
-        },
-        {
-          "date": "2026-03-24",
-          "price": 44.57,
-          "pnl": -99.45,
-          "pnl_pct": -33.72
-        },
-        {
-          "date": "2026-03-25",
-          "price": 43.62,
-          "pnl": -103.62,
-          "pnl_pct": -35.13
-        },
-        {
-          "date": "2026-03-26",
-          "price": 44.39,
-          "pnl": -100.24,
-          "pnl_pct": -33.98
-        },
-        {
-          "date": "2026-03-27",
-          "price": 41.23,
-          "pnl": -114.11,
-          "pnl_pct": -38.68
-        },
-        {
-          "date": "2026-03-30",
-          "price": 38.78,
-          "pnl": -124.85,
-          "pnl_pct": -42.33
-        },
-        {
-          "date": "2026-03-31",
-          "price": 37.89,
-          "pnl": -128.76,
-          "pnl_pct": -43.65
-        },
-        {
-          "date": "2026-04-01",
-          "price": 41.68,
-          "pnl": -112.13,
-          "pnl_pct": -38.01
-        },
-        {
-          "date": "2026-04-02",
-          "price": 43.23,
-          "pnl": -105.33,
-          "pnl_pct": -35.71
-        },
-        {
-          "date": "2026-04-03",
-          "price": 43.33,
-          "pnl": -104.89,
-          "pnl_pct": -35.56
-        },
-        {
-          "date": "2026-04-06",
-          "price": 43.33,
-          "pnl": -104.89,
-          "pnl_pct": -35.56
-        },
-        {
-          "date": "2026-04-07",
-          "price": 44.1,
-          "pnl": -101.52,
-          "pnl_pct": -34.41
-        },
-        {
-          "date": "2026-04-08",
-          "price": 44.15,
-          "pnl": -101.3,
-          "pnl_pct": -34.34
-        },
-        {
-          "date": "2026-04-09",
-          "price": 48.0,
-          "pnl": -84.41,
-          "pnl_pct": -28.61
-        },
-        {
-          "date": "2026-04-10",
-          "price": 48.96,
-          "pnl": -80.19,
-          "pnl_pct": -27.19
-        },
-        {
-          "date": "2026-04-13",
-          "price": 49.17,
-          "pnl": -79.27,
-          "pnl_pct": -26.87
         }
       ]
     }
